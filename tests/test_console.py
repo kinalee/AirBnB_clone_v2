@@ -22,6 +22,7 @@ class Test_Console(unittest.TestCase):
     """
     Test the console
     """
+    valid_classes = HBNBCommand.valid_classes
 
     def setUp(self):
         self.cli = HBNBCommand()
@@ -69,13 +70,15 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_show("d3da85f2-499c-43cb-b33d-3d7935bc808c")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** no instance found **")
+        self.assertEqual(output, "** class doesn't exist **")
 
     def test_create(self):
         with captured_output() as (out, err):
             self.cli.do_create('')
         output = out.getvalue().strip()
-        self.assertEqual(output, "Usage: create BaseModel")
+        expected = ", ".join(self.valid_classes)
+        expected = "Usage: create [{:s}]".format(expected) 
+        self.assertEqual(output, expected)
 
         with captured_output() as (out, err):
             self.cli.do_create("BaseModel")
@@ -109,7 +112,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_destroy("d3da85f2-499c-43cb-b33d-3d7935bc808c")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class name missing **")
+        self.assertEqual(output, "** class doesn't exist **")
 
     def test_destroy_error_invalid_class(self):
         with captured_output() as (out, err):
@@ -173,7 +176,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** instance id missing **")
+        self.assertEqual(output, "** value missing **")
 
     def test_update_error_invalid_class(self):
         with captured_output() as (out, err):
@@ -186,7 +189,7 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_update("d3da85f2-499c-43cb-b33d-3d7935bc808c name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class name missing **")
+        self.assertEqual(output, "** class doesn't exist **")
 
     def test_update_error_missing_value(self):
         with captured_output() as (out, err):

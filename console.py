@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
         """Create a new Basemodel"""
         args = args.split()
         if len(args) != 1:
-            print("** clas name missing **")
+            print("Usage: create [{:s}]".format(", ".join(self.valid_classes)))
         else:
             if len(args) > 0 and args[0] in HBNBCommand.valid_classes:
                 new_obj = eval(args[0])()
@@ -41,11 +41,11 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
         if args[0] not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
             return
         all_objs = storage.all()
         for objs_id in all_objs.keys():
@@ -60,12 +60,13 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
+        if args[0] not in HBNBCommand.valid_classes:
+            print("** class doesn't exist **")
+            return       
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if args[0] not in HBNBCommand.valid_classes:
-            print("** class doesn't exist **")
-            return
+
         all_objs = storage.all()
         for objs_id in all_objs.keys():
             if objs_id == args[1] and args[0] in str(type(all_objs[objs_id])):
@@ -95,6 +96,9 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
+        if args[0] not in HBNBCommand.valid_classes:
+            print("** class doesn't exist **")
+            return
         if len(args) == 1:
             print("** instance id missing **")
             return
@@ -103,9 +107,6 @@ class HBNBCommand(cmd.Cmd):
             return
         if len(args) == 3:
             print("** value missing **")
-            return
-        if args[0] not in HBNBCommand.valid_classes:
-            print("** class doesn't exist **")
             return
         all_objs = storage.all()
         for obj_id in all_objs.keys():

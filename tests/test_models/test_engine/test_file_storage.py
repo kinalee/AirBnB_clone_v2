@@ -18,9 +18,7 @@ class Test_FileStorage(unittest.TestCase):
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
         self.model = BaseModel(test_args)
 
-        self.test_len = 0
-        if os.path.isfile("file.json"):
-            self.test_len = len(self.store.all())
+        self.test_len = len(self.store.all())
 
     def tearDown(self):
         import os
