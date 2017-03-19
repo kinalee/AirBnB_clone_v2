@@ -6,4 +6,7 @@ class State(BaseModel):
     name = ""
 
     def __init__(self, *args, **kwargs):
-        super(State, self).__init__(*args, **kwargs)
+        if len(args) > 0:
+            super(State, self).__init__(args[0], kwargs)
+        else:
+            super().__init__()

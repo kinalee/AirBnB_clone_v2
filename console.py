@@ -25,14 +25,17 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """Create a new Basemodel"""
         args = args.split()
-        if len(args) != 1:
+        if len(args) < 1:
             print("Usage: create [{:s}]".format(", ".join(self.valid_classes)))
         else:
-            if len(args) > 0 and args[0] in HBNBCommand.valid_classes:
+            if args[0] in HBNBCommand.valid_classes:
                 new_obj = eval(args[0])()
+                for key, value in self.arg_unpack(args).items():
+                    new_obj[key] = value
                 print(new_obj.id)
                 new_obj.save()
             else:
+                print("** class doesn't exist **")
                 return
 
     def do_show(self, args):
@@ -229,6 +232,22 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("Not a valid command")
 
+    def arg_unpack(self, args):
+        """given a list of args, return the key, value dicitonaryi
+           Deletes leading/ending quotes, transforms '_' into ' ' in values"""
+        newDict = {a.split('=')[0]: a.split('=')[1]
+                  for a in args if '=' in a}
+        for k, v in newDict.items():
+            if newDict[k][0] != '"':
+                try:
+                    newDict[k] = int(v)
+                except:
+                    newDict[k] = float(v)
+            else:
+                newDict[k] = v[1:-1]
+                if '_' in newDict[k]:
+                    newDict[k] = newDict[k].replace('_', ' ')
+        return newDict
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
