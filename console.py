@@ -238,10 +238,16 @@ class HBNBCommand(cmd.Cmd):
         newDict = {a.split('=')[0]: a.split('=')[1]
                   for a in args if '=' in a}
         for k, v in newDict.items():
-            if newDict[k][0] == '"':
+            if newDict[k][0] != '"':
+                try:
+                    newDict[k] = int(v)
+                except:
+                    newDict[k] = float(v)
+            else:
                 newDict[k] = v[1:-1]
                 if '_' in newDict[k]:
                     newDict[k] = newDict[k].replace('_', ' ')
+            
         return newDict
 
 if __name__ == '__main__':
