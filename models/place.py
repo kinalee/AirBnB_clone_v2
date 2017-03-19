@@ -16,4 +16,7 @@ class Place(BaseModel):
     amenities = [""]
 
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        if len(args) > 0:
+            super().__init__(args[0], kwargs)
+        else:
+            super().__init__()
