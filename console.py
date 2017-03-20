@@ -30,12 +30,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[0] in HBNBCommand.valid_classes:
                 new_obj = eval(args[0])(**self.arg_unpack(args))
-                """for key, value in self.arg_unpack(args).items():
-                    new_obj[key] = value"""
                 print(new_obj.id)
                 new_obj.save()
-                print(dir(new_obj))
-                print(new_obj.__dict__)
             else:
                 print("** class doesn't exist**")
                 return
@@ -235,7 +231,7 @@ class HBNBCommand(cmd.Cmd):
             print("Not a valid command")
 
     def arg_unpack(self, args):
-        """given a list of args, return the key, value dicitonaryi
+        """given a list of args, return the key, value dicitonary
            Deletes leading/ending quotes, transforms '_' into ' ' in values"""
         newDict = {a.split('=')[0]: a.split('=')[1]
                   for a in args if '=' in a}
@@ -248,8 +244,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 newDict[k] = v[1:-1]
                 if '_' in newDict[k]:
-                    newDict[k] = newDict[k].replace('_', ' ')
-            
+                    newDict[k] = newDict[k].replace('_', ' ') 
         return newDict
 
 if __name__ == '__main__':
