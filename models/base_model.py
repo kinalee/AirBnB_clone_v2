@@ -13,27 +13,27 @@ class BaseModel:
                             "Only create objects with **dictionaries")
         if len(kwargs) > 0:
             self.__dict__ = kwargs
-        try:
-            self['id']
-        except:
+        if 'id' not in self:
             self['id'] = str(uuid.uuid4())
-        try:
-            self['created_at']
-        except:
+        if 'created_at' not in self:
             self['created_at'] = datetime.datetime.now()
 
     def __missing__(self, key):
+        """missing builtin implementation for missing class keys"""
         if isinstance(key, str):
             raise KeyError(key)
         return self[str(key)]
 
     def __contains__(self, key):
+        """does object have key"""
         return str(key) in self.__dict__
 
     def __setitem__(self, key, item):
+        """set Model item dictionary style"""
         self.__dict__[str(key)] = item
 
     def __getitem__(self, key):
+        """get Model item dictionary style"""
         return self.__dict__[str(key)]
 
     def save(self):
