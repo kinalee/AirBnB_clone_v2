@@ -245,6 +245,8 @@ class HBNBCommand(cmd.Cmd):
                 newDict[k] = v[1:-1]
                 if '_' in newDict[k]:
                     newDict[k] = newDict[k].replace('_', ' ')
+                if '\\"' in newDict[k]:
+                    newDict[k] = newDict[k].replace('\\"', '"')
         return newDict
 
 if __name__ == '__main__':
