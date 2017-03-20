@@ -245,11 +245,6 @@ class HBNBCommand(cmd.Cmd):
                 newDict[k] = v[1:-1]
                 if '_' in newDict[k]:
                     newDict[k] = newDict[k].replace('_', ' ')
-                """ Takes care of doublequotes """
-                if '"' in newDict[k]:
-                    tmpList = newDict[k].split('"')
-                    tmpList = '\"'.join(tmpList)
-                    newDict[k] = tmpList
         return newDict
 
 if __name__ == '__main__':
