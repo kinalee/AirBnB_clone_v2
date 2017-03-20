@@ -9,6 +9,8 @@ class Review(BaseModel):
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
-            super().__init__(args[0], kwargs)
+            super().__init__(*args, **kwargs)
+        if len(kwargs) > 0:
+            super().__init__(*args, **kwargs)
         else:
             super().__init__()

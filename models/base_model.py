@@ -4,18 +4,23 @@ import uuid
 import models
 import collections
 
-class BaseModel(dict):
+class BaseModel:
     """The base class for all storage objects in this project"""
     def __init__(self, *args, **kwargs):
         """initialize class object"""
         if len(args) > 0:
-            self.__dict__ = args[0]
-        elif len(kwargs) > 0:
-            for k, v in kwargs:
-                self.__dict__[k] = v
-        else:
-            self.created_at = datetime.datetime.now()
-            self.id = str(uuid.uuid4())
+            raise Exception("BaseModel was passed invalid args."
+                            "Only create objects with **dictionaries")
+        if len(kwargs) > 0:
+            self.__dict__ = kwargs
+        try:
+            self['id']
+        except:
+            self['id'] = str(uuid.uuid4())
+        try:
+            self['created_at']
+        except:
+            self['created_at'] = datetime.datetime.now()
 
     def __missing__(self, key):
         if isinstance(key, str):
@@ -27,6 +32,9 @@ class BaseModel(dict):
 
     def __setitem__(self, key, item):
         self.__dict__[str(key)] = item
+
+    def __getitem__(self, key):
+        return self.__dict__[str(key)]
 
     def save(self):
         """method to update self"""

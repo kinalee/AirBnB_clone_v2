@@ -29,11 +29,13 @@ class HBNBCommand(cmd.Cmd):
             print("Usage: create [{:s}]".format(", ".join(self.valid_classes)))
         else:
             if args[0] in HBNBCommand.valid_classes:
-                new_obj = eval(args[0])()
-                for key, value in self.arg_unpack(args).items():
-                    new_obj[key] = value
+                new_obj = eval(args[0])(**self.arg_unpack(args))
+                """for key, value in self.arg_unpack(args).items():
+                    new_obj[key] = value"""
                 print(new_obj.id)
                 new_obj.save()
+                print(dir(new_obj))
+                print(new_obj.__dict__)
             else:
                 print("** class doesn't exist **")
                 return
