@@ -31,7 +31,7 @@ class Test_Console(unittest.TestCase):
                      'id': 'd3da85f2-499c-43cb-b33d-3d7935bc808c',
                      'created_at': datetime(2017, 2, 11, 23, 48, 34, 339743),
                      'name': 'Ace'}
-        self.model = BaseModel(test_args)
+        self.model = BaseModel(**test_args)
         self.model.save()
 
     def tearDown(self):
@@ -93,7 +93,7 @@ class Test_Console(unittest.TestCase):
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
-        testmodel = BaseModel(test_args)
+        testmodel = BaseModel(**test_args)
         testmodel.save()
         self.cli.do_destroy("BaseModel f519fb40-1f5c-458b-945c-2ee8eaaf4900")
 
@@ -131,7 +131,7 @@ class Test_Console(unittest.TestCase):
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
-        testmodel = BaseModel(test_args)
+        testmodel = BaseModel(**test_args)
         testmodel.save()
         with captured_output() as (out, err):
             self.cli.do_all("")

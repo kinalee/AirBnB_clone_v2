@@ -16,7 +16,7 @@ class Test_FileStorage(unittest.TestCase):
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
-        self.model = BaseModel(test_args)
+        self.model = BaseModel(**test_args)
 
         self.test_len = len(self.store.all())
 

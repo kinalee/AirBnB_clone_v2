@@ -15,7 +15,7 @@ class Test_BaseModel(unittest.TestCase):
                      'updated_at': datetime(2017, 2, 10, 2, 6, 55, 258966),
                      'id': '46458416-e5d5-4985-aa48-a2b369d03d2a',
                      'name': 'model1'}
-        self.model2 = BaseModel(test_args)
+        self.model2 = BaseModel(**test_args)
         self.model2.save()
 
     def test_instantiation(self):
