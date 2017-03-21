@@ -3,8 +3,20 @@ import datetime
 import uuid
 import models
 import collections
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
 
 class BaseModel:
+    id = Column(String(60), nullable=False,
+                primary_key=True, unique=True)
+    created_at = Column(DateTime, default=datetime.datetime.now(),
+                        nullable=False)
+    updated_at = Column(DateTime, default=datetime.datetime.now(),
+                        nullable=False)
+
     """The base class for all storage objects in this project"""
     def __init__(self, *args, **kwargs):
         """initialize class object"""
