@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
                 print(new_obj.id)
                 new_obj.save()
             else:
-                print("** class doesn't exist**")
+                print("** class doesn't exist **")
                 return
 
     def do_show(self, args):
@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
             return
         if args[0] not in HBNBCommand.valid_classes:
             print("** class doesn't exist **")
-            return       
+            return
         if len(args) == 1:
             print("** instance id missing **")
             return
@@ -244,7 +244,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 newDict[k] = v[1:-1]
                 if '_' in newDict[k]:
-                    newDict[k] = newDict[k].replace('_', ' ') 
+                    newDict[k] = newDict[k].replace('_', ' ')
+                if '\\"' in newDict[k]:
+                    newDict[k] = newDict[k].replace('\\"', '"')
         return newDict
 
 if __name__ == '__main__':

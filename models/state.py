@@ -9,6 +9,6 @@ class State(BaseModel):
         if len(args) > 0:
             super().__init__(*args, **kwargs)
         if len(kwargs) > 0:
-            super().__inti__(*args, **kwargs)
+            super().__init__(*args, **kwargs)
         else:
             super().__init__()
