@@ -3,20 +3,22 @@ import os
 import models
 import datetime
 import uuid
-import collections
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+if os.getenv('HBNB_TYPE_STORAGE') == "db":
+    Base = declarative_base()
+else:
+    Base = object
 
 
 class BaseModel:
     if os.getenv('HBNB_TYPE_STORAGE') == "db":
         id = Column(String(60), nullable=False,
                     primary_key=True, unique=True)
-        created_at = Column(DateTime, default=datetime.datetime.now(),
+        created_at = Column(DateTime(), default=datetime.datetime.now(),
                             nullable=False)
-        updated_at = Column(DateTime, default=datetime.datetime.now(),
+        updated_at = Column(DateTime(), default=datetime.datetime.now(),
                             nullable=False)
 
     """The base class for all storage objects in this project"""
@@ -26,7 +28,8 @@ class BaseModel:
             raise Exception("BaseModel was passed invalid args."
                             "Only create objects with **dictionaries")
         if len(kwargs) > 0:
-            self.__dict__ = kwargs
+            for k, v in kwargs.items():
+                self.__dict__[k] = v
         if 'id' not in self:
             self['id'] = str(uuid.uuid4())
         if 'created_at' not in self:
@@ -52,7 +55,7 @@ class BaseModel:
 
     def save(self):
         """method to update self"""
-        self.updated_at = datetime.datetime.now()
+        self.__dict__["updated_at"] = datetime.datetime.now()
         models.storage.new(self)
         models.storage.save()
 
