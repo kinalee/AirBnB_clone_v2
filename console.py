@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 import cmd
-from models import *
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.review import Review
+from models.engine import file_storage
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -234,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
         """given a list of args, return the key, value dicitonary
            Deletes leading/ending quotes, transforms '_' into ' ' in values"""
         newDict = {a.split('=')[0]: a.split('=')[1]
-                  for a in args if '=' in a}
+                   for a in args if '=' in a}
         for k, v in newDict.items():
             if newDict[k][0] != '"':
                 try:

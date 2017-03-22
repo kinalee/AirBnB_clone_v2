@@ -1,6 +1,12 @@
 #!/usr/bin/python3
 import os
-from models import *
+from models.base_model import BaseModel, Base
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -9,19 +15,18 @@ class DBStorage:
     __engine = None
     __session = None
 
-    def init(self):
+    def __init__(self):
         user = os.getenv('HBNB_MYSQL_USER')
         pwd = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
         db = os.getenv('HBNB_MYSQL_DB')
 
-        if os.getenv('HBNB_MYSQL_ENV') == "test":
-            """ drop all tables """
-
         """ host port needed? """
         self.__engine = create_engine(
                 "mysql://{}:{}@{}/{}".format(user, pwd, host, db))
 
+        if os.getenv('HBNB_MYSQL_ENV') == "test":
+            """ drop all tables """
 
     def all(self, cls=None):
         queryList = ["User", "State", "City", "Amenity", "Place", "Review"]
@@ -34,7 +39,6 @@ class DBStorage:
             for data in s.query(cls):
                 queryDict[data.id] = data
         return queryDict
-
 
     def new(self, obj):
         s = self.__session
@@ -51,5 +55,6 @@ class DBStorage:
             s.delete(obj)
 
     def reload(self):
+        Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()

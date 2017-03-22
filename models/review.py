@@ -11,9 +11,9 @@ class Review(BaseModel, Base):
         place_id = Column(String(60), ForeignKey("places.id"), nullable=False)
         user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     else:
-        text=""
-        place_id=""
-        user_id=""
+        text = ""
+        place_id = ""
+        user_id = ""
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:

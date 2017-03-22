@@ -11,7 +11,7 @@ class State(BaseModel, Base):
         name = Column(String(128), nullable=False)
         cities = relationship("City", backref="state")
     else:
-        name=""
+        name = ""
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
