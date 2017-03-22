@@ -21,24 +21,24 @@ class DBStorage:
         host = os.getenv('HBNB_MYSQL_HOST')
         db = os.getenv('HBNB_MYSQL_DB')
 
-        """ host port needed? """
         self.__engine = create_engine(
-                "mysql://{}:{}@{}/{}".format(user, pwd, host, db))
+                "mysql+mysqldb://{}:{}@{}/{}".format(user, pwd, host, db))
 
         if os.getenv('HBNB_MYSQL_ENV') == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        queryList = ["User", "State", "City", "Amenity", "Place", "Review"]
+        queryList = [User, State, City, Amenity, Place, Review]
         queryDict = {}
         s = self.__session
         if cls is None:
-            for data in s.query(queryList):
-                queryDict[data.id] = data
+            for q in queryList:
+                for data in s.query(q):
+                    queryDict[data.__dict__["id"]] = data
         else:
             for data in s.query(cls):
-                queryDict[data.id] = data
-        return queryDict
+                queryDict[data.__dict__["id"]] = data
+            return queryDict
 
     def new(self, obj):
         s = self.__session
