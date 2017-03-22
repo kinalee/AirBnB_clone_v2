@@ -26,7 +26,7 @@ class DBStorage:
                 "mysql://{}:{}@{}/{}".format(user, pwd, host, db))
 
         if os.getenv('HBNB_MYSQL_ENV') == "test":
-            """ drop all tables """
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         queryList = ["User", "State", "City", "Amenity", "Place", "Review"]
