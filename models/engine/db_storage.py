@@ -31,14 +31,10 @@ class DBStorage:
         queryList = [User, State, City, Amenity, Place, Review]
         queryDict = {}
         s = self.__session
-        if cls is None:
-            for q in queryList:
-                for data in s.query(q):
-                    queryDict[data.__dict__["id"]] = data
-        else:
-            for data in s.query(cls):
+        for q in queryList:
+            for data in s.query(q):
                 queryDict[data.__dict__["id"]] = data
-            return queryDict
+        return queryDict
 
     def new(self, obj):
         s = self.__session
