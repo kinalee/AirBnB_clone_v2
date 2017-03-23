@@ -1,4 +1,6 @@
 import unittest
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 import sys
 import io
 from contextlib import contextmanager

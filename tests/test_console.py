@@ -46,13 +46,11 @@ class Test_Console(unittest.TestCase):
                      'id': test_id,
                      'created_at': datetime(2017, 2, 11, 23, 48, 34, 339743),
                      'name': 'Ace'}
-        """self.model = BaseModel(**test_args)"""
-        self.cli.storage.save()
+        self.model = BaseModel(**test_args)
+        self.model.save()
         for item in self.test_objects:
             self.cli.storage.new(item[2])
         self.cli.storage.save()
-        print(self.cli.storage._FileStorage__file_path)
-        print(self.cli.storage.all())
 
     def tearDown(self):
         self.cli.do_destroy("BaseModel d3da85f2-499c-43cb-b33d-3d7935bc808c")
@@ -155,6 +153,7 @@ class Test_Console(unittest.TestCase):
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
         testmodel = BaseModel(**test_args)
+        testmodel.save()
         self.cli.storage.save()
         with captured_output() as (out, err):
             self.cli.do_all("")
@@ -176,7 +175,7 @@ class Test_Console(unittest.TestCase):
         output = out.getvalue().strip()
         self.assertEqual(output, "** class doesn't exist **")
 
-    """def test_update_correct(self):
+    def test_update_correct(self):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel " +
                                "d3da85f2-499c-43cb-b33d-3d7935bc808c name Bay")
@@ -187,39 +186,39 @@ class Test_Console(unittest.TestCase):
             self.cli.do_show("BaseModel d3da85f2-499c-43cb-b33d-3d7935bc808c")
         output = out.getvalue().strip()
         self.assertTrue("Bay" in output)
-        self.assertFalse("Ace" in output)"""
+        self.assertFalse("Ace" in output)
 
-    """def test_update_error_invalid_id(self):
+    def test_update_error_invalid_id(self):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel 123-456-abc name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** no instance found **")"""
+        self.assertEqual(output, "** no instance found **")
 
-    """def test_update_error_no_id(self):
+    def test_update_error_no_id(self):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** value missing **")"""
+        self.assertEqual(output, "** value missing **")
 
-    """def test_update_error_invalid_class(self):
+    def test_update_error_invalid_class(self):
         with captured_output() as (out, err):
             self.cli.do_update("Human " +
                                "d3da85f2-499c-43cb-b33d-3d7935bc808c name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class doesn't exist **")"""
+        self.assertEqual(output, "** class doesn't exist **")
 
-    """def test_update_error_no_class(self):
+    def test_update_error_no_class(self):
         with captured_output() as (out, err):
             self.cli.do_update("d3da85f2-499c-43cb-b33d-3d7935bc808c name Cat")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** class doesn't exist **")"""
+        self.assertEqual(output, "** class doesn't exist **")
 
-    """def test_update_error_missing_value(self):
+    def test_update_error_missing_value(self):
         with captured_output() as (out, err):
             self.cli.do_update("BaseModel " +
                                "d3da85f2-499c-43cb-b33d-3d7935bc808c name")
         output = out.getvalue().strip()
-        self.assertEqual(output, "** value missing **")"""
+        self.assertEqual(output, "** value missing **")
 
 if __name__ == "__main__":
     unittest.main()
