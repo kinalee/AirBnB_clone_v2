@@ -204,7 +204,8 @@ class Test_Console(unittest.TestCase):
 
     def test_update_error_invalid_id(self):
         with captured_output() as (out, err):
-            self.cli.do_update("BaseModel ffffffff-edcb-a111-000000000000 name Cat")
+            self.cli.do_update("BaseModel ffffffff-edcb-a111-000000000000"
+                               " name Cat")
         output = out.getvalue().strip()
         self.assertEqual(output, "** no instance found **")
 

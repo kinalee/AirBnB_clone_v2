@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime
 from models import *
 
+
 class Test_BaseModel(unittest.TestCase):
     """
     Test the base model class

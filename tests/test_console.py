@@ -98,7 +98,7 @@ class Test_Console(unittest.TestCase):
             self.cli.do_create('')
         output = out.getvalue().strip()
         expected = ", ".join(self.valid_classes)
-        expected = "Usage: create [{:s}]".format(expected) 
+        expected = "Usage: create [{:s}]".format(expected)
         self.assertEqual(output, expected)
 
         with captured_output() as (out, err):

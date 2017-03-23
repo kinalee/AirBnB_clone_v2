@@ -5,6 +5,7 @@ from models.engine.file_storage import FileStorage
 from models import *
 from console import HBNBCommand
 
+
 class Test_FileStorage(unittest.TestCase):
     """
     Tests the FileStorage class
@@ -34,7 +35,7 @@ class Test_FileStorage(unittest.TestCase):
 
     def test_all(self):
         self.assertEqual(self.storage._FileStorage__objects,
-                         self.storage.all()) 
+                         self.storage.all())
 
     def test_new(self):
         for item in self.test_objects:
