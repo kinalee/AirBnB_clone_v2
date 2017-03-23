@@ -11,7 +11,8 @@ from models.engine import file_storage
 from models.engine import db_storage
 
 
-if os.getenv('HBNB_TYPE_STORAGE') == "db":
+if (os.getenv('HBNB_TYPE_STORAGE') == "db" and
+   os.getenv('HBNB_MYSQL_ENV') != "test"):
     storage = db_storage.DBStorage()
 else:
     storage = file_storage.FileStorage()
