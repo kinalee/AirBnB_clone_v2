@@ -6,9 +6,9 @@ from models import *
 from console import HBNBCommand
 
 
-class Test_FileStorage(unittest.TestCase):
+class Test_DBStorage(unittest.TestCase):
     """
-    Tests the FileStorage class
+    Tests the DBStorage class
     """
 
     @classmethod
