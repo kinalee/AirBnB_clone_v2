@@ -34,22 +34,23 @@ class FileStorage:
 
     def reload(self):
         try:
-            with open(FileStorage.__file_path,
+            with open(self.__file_path,
                       mode="r+", encoding="utf-8") as fd:
-                FileStorage.__objects = {}
+                self.__objects = {}
                 temp = json.load(fd)
                 for k in temp.keys():
                     cls = temp[k].pop("__class__", None)
                     cr_at = temp[k]["created_at"]
                     cr_at = datetime.strptime(cr_at, "%Y-%m-%d %H:%M:%S.%f")
-                    up_at = temp[k]["updated_at"]
-                    up_at = datetime.strptime(up_at, "%Y-%m-%d %H:%M:%S.%f")
+                    if "updated_at" in k:
+                        up_at = temp[k]["updated_at"]
+                        up_at = datetime.strptime(up_at, "%Y-%m-%d %H:%M:%S.%f")
                     self.__objects[k] = eval(cls)(**temp[k])
         except Exception as e:
             pass
 
     def delete(self, obj=None):
-        if obj in FileStorage.__objects:
-            for k, v in FileStorage.__objects:
+        if obj in self.__objects:
+            for k, v in self.__objects:
                 if v == obj:
-                    del FileStorage.__objects[k]
+                    del self.__objects[k]

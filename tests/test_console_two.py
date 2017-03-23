@@ -63,8 +63,8 @@ class Test_Console(unittest.TestCase):
         with captured_output() as (out, err):
             self.cli.do_all()
         output = out.getvalue().strip()
-        for obj in self.test_objects:
-            self.assertIn(obj[1], output)
+        for item in self.test_objects:
+            self.assertIn(item[1], output)
 
     def test_all_with_class(self):
         for item in self.cli.valid_classes:
@@ -122,6 +122,31 @@ class Test_Console(unittest.TestCase):
             self.cli.do_show("BaseModel {}".format(output))
         output2 = out.getvalue().strip()
         self.assertIn(output, output2)
+
+    def test_create_withargs_correctinput(self):
+        for item in self.test_objects:
+            with captured_output() as (out, err):
+                s = "{} name=\"TEST_\"STRING\"\" i=1 f=1.11".format(item[0])
+                self.cli.do_create(s)
+            theid = out.getvalue().strip()
+            with captured_output() as (out, err):
+                self.cli.do_show("{} {}".format(item[0], theid))
+            output = out.getvalue().strip()
+            self.assertIn("'name': 'TEST \"STRING\"'", output)
+            self.assertIn("'i': 1", output)
+            self.assertIn("'f': 1.11", output)
+
+    def test_create_withargs_one_bad_input(self):
+        for item in self.test_objects:
+            with captured_output() as (out, err):
+                s = "{} name=\"TEST_\"STRING\"\" KappaPride".format(item[0])
+                self.cli.do_create(s)
+            theid = out.getvalue().strip()
+            with captured_output() as (out, err):
+                self.cli.do_show("{} {}".format(item[0], theid))
+            output = out.getvalue().strip()
+            self.assertIn("'name': 'TEST \"STRING\"'", output)
+            self.assertNotIn("KappaPride", output)
 
     def test_destroy_created(self):
         for item in self.test_objects:
