@@ -12,7 +12,7 @@ from models.engine import db_storage
 
 
 if (os.getenv('HBNB_TYPE_STORAGE') == "db" and
-    os.getenv('HBNB_MYSQL_ENV') != "test"):
+   os.getenv('HBNB_MYSQL_ENV') != "test"):
     storage = db_storage.DBStorage()
 else:
     storage = file_storage.FileStorage()
