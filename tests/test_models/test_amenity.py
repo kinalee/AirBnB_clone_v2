@@ -10,7 +10,6 @@ class Test_AmenityModel(unittest.TestCase):
 
     def setUp(self):
         self.model = Amenity()
-        self.model.save()
 
     def test_var_initialization(self):
         self.assertTrue(hasattr(self.model, "name"))

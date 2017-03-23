@@ -10,7 +10,6 @@ class Test_PlaceModel(unittest.TestCase):
 
     def setUp(self):
         self.model = Place()
-        self.model.save()
 
     def test_var_initialization(self):
         self.assertTrue(hasattr(self.model, "city_id"))

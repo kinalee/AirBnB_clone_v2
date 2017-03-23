@@ -10,7 +10,6 @@ class Test_ReviewModel(unittest.TestCase):
 
     def setUp(self):
         self.model = Review()
-        self.model.save()
 
     def test_var_initialization(self):
         self.assertTrue(hasattr(self.model, "place_id"))

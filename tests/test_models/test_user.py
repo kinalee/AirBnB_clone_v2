@@ -10,7 +10,6 @@ class Test_UserModel(unittest.TestCase):
 
     def setUp(self):
         self.model = User()
-        self.model.save()
 
     def test_var_initialization(self):
         self.assertTrue(hasattr(self.model, "email"))
