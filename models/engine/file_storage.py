@@ -18,15 +18,7 @@ class FileStorage:
         self.reload()
 
     def all(self, cls=None):
-        if cls is None:
-            return self.__objects
-        else:
-            objDict = {}
-            for k, v in self.__objects.items():
-                if cls in v:
-                    objDict[k] = v
-            return objDict
-
+        return self.__objects
 
     def new(self, obj):
         if obj is not None:
