@@ -29,16 +29,14 @@ def python(text='is cool'):
     return 'Python {:s}'.format(text)
 
 
-@app.route('/number/<n>')
+@app.route('/number/<int:n>')
 def onlyint(n):
-    if int(n):
-        return '{:d} is a number'.format(int(n))
+    return '{:d} is a number'.format(n)
 
 
-@app.route('/number_template/<n>')
+@app.route('/number_template/<int:n>')
 def onlyinttemp(n):
-    if int(n):
-        return render_template("5-number.html", n=int(n))
+    return render_template("5-number.html", n=n)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

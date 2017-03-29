@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import os
 from flask import Flask
 
 app = Flask(__name__)
@@ -28,11 +27,10 @@ def python(text='is cool'):
     text = text.replace('_', ' ')
     return 'Python {:s}'.format(text)
 
-
-@app.route('/number/<n>')
+@app.route('/number/<int:n>')
 def onlyint(n):
-    if int(n):
-        return '{:d} is a number'.format(int(n))
+    return '{:d} is a number'.format(n)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
