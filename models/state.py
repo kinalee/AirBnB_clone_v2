@@ -12,6 +12,9 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state")
     else:
         name = ""
+        @property
+        def cities(self):
+            return self.
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:

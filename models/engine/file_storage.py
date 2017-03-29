@@ -55,3 +55,6 @@ class FileStorage:
             for k, v in self.__objects:
                 if v == obj:
                     del self.__objects[k]
+
+    def close(self):
+        self.reload()
