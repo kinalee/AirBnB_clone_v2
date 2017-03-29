@@ -27,6 +27,7 @@ def python(text='is cool'):
     text = text.replace('_', ' ')
     return 'Python {:s}'.format(text)
 
+
 @app.route('/number/<int:n>')
 def onlyint(n):
     return '{:d} is a number'.format(n)
