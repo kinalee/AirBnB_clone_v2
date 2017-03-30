@@ -18,8 +18,15 @@ class FileStorage:
         self.reload()
 
     def all(self, cls=None):
-        return self.__objects
-
+        clsList = [User, State, City, Amenity, Place, Review]
+        newDict = {}
+        if cls is None:
+            return self.__objects
+        else:
+            for k, v in self.__objects.items():
+                if isinstance(v, eval(cls)):
+                    newDict[k] = v
+            return newDict
     def new(self, obj):
         if obj is not None:
             self.__objects[obj.id] = obj
